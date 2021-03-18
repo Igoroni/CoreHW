@@ -5,11 +5,12 @@ import java.util.Scanner;
 public class Greed {
 
     //get input from user and transform it from String to String[]
+    Scanner scanner = new Scanner(System.in);
+
     public String [] inputNumbers() {
-        Scanner scanner = new Scanner(System.in);
         System.out.println("Write please 5 numbers from 1 to 6, with 1 space between each of them");
         String input = scanner.nextLine().strip();
-        scanner.close();
+       // scanner.close();
         return input.split(" ");
     }
 
@@ -22,25 +23,13 @@ public class Greed {
         return true;
     }
 
-    // check there only one digit in every cell
-    public boolean verifyOneDigit(String [] numbers) {
-        for(String number: numbers) {
-            if (number.length() != 1) {
-                System.out.println("Some number has more than one digit.Please thy again.");
-                return false;
-            }
-        }
-        return true;
-    }
-
     //check all the digits are legal
     public boolean numbersRangeIsOk(String [] numbers) {
         boolean result = true;
         for (String number : numbers) {
             result = number.matches("[1-6]");
             if (!result) {
-                result = false;
-                System.out.println("Some number is out of range. Please thy again.");
+                System.out.println("Some number is out of range or extra space between them. Please thy again.");
                 break;
             }
         }
@@ -51,10 +40,11 @@ public class Greed {
     public String [] verificationOk() {
         String [] numbers = inputNumbers();
 
-        boolean result =  numbersRangeIsOk(numbers) && verifyOneDigit(numbers) && quantityOfNumbersIsOk(numbers);
+        boolean result =  numbersRangeIsOk(numbers) && quantityOfNumbersIsOk(numbers);
 
         if (!result) verificationOk();
 
+        scanner.close();
         return numbers;
     }
 
@@ -101,7 +91,7 @@ public class Greed {
     }
 }
 
-class Test {
+class TestGreed {
     public static void main(String[] args) {
         Greed greed = new Greed();
         System.out.println(greed.pointsCount());
